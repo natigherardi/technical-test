@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import Header from "./components/header/header.tsx";
+import List from "./components/list/list.tsx";
+import SearchForm, {
+    FiltersReceived,
+} from "./components/search-form/search-form.tsx";
+
+const myProds = [
+    {
+        name: "demo",
+        price: 10,
+        categories: ["food", "clothes"],
+    },
+    { name: "demo2", price: 20, categories: ["toiletries", "free-shipping"] },
+    { name: "demo3", price: 30, categories: ["clothes", "free-shipping"] },
+    { name: "demo4", price: 40, categories: ["toiletries", "food"] },
+    { name: "demo5", price: 50, categories: ["clothes", "toiletries"] },
+    { name: "demo6", price: 60, categories: ["food", "free-shipping"] },
+    { name: "demo7", price: 70, categories: ["toiletries", "free-shipping"] },
+    { name: "demo8", price: 80, categories: ["clothes", "free-shipping"] },
+    { name: "demo9", price: 90, categories: ["toiletries", "food"] },
+    { name: "demo10", price: 100, categories: ["clothes", "toiletries"] },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+    //TODO: Debes eliminar la deshabilitación de regla de eslint, el any y asignarle a products el tipo correcto
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [products] = useState<any[]>(myProds);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    useEffect(() => {
+        //Aquí debes hacer la petición a la API
+    }, []);
+
+    const filterReceived = (newFilters: FiltersReceived) => {
+        console.log(newFilters);
+    };
+
+    return (
+        <>
+            <Header />
+            <SearchForm onFilter={filterReceived} />
+            <List products={products} />
+        </>
+    );
 }
 
-export default App
+export default App;
